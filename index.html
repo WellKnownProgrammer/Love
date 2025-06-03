@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Love Quiz 💖</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #ffc0cb; /* Pink background */
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .quiz-container {
+      background-color: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+    }
+
+    .question {
+      font-size: 1.4em;
+      margin-bottom: 20px;
+    }
+
+    .option {
+      margin: 10px 0;
+      text-align: left;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-size: 1em;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff1493;
+    }
+
+    #result {
+      font-size: 1.2em;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .heart {
+      font-size: 1.2em;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <div id="quiz-content">
+      <div id="question" class="question"></div>
+      <div id="options"></div>
+      <button onclick="submitAnswer()">Submit ❤️</button>
+      <div id="result"></div>
+    </div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "❤️ Where did we meet?",
+        options: ["Road", "Classroom", "Seminar Hall", "Train"],
+        answer: "Seminar Hall"
+      },
+      {
+        question: "💘 When was our first touch?",
+        options: ["First meeting", "After our first walk together", "Coffee Treat", "After relationship started"],
+        answer: "After our first walk together"
+      },
+      {
+        question: "💕 When did we first hold hands?",
+        options: ["First meeting in park", "Nalban", "While crossing the road", "In a movie theater"],
+        answer: "While crossing the road"
+      },
+      {
+        question: "💓 Where did I confess?",
+        options: ["Park", "View Point", "Seminar Hall", "Phone"],
+        answer: "View Point"
+      },
+      {
+        question: "💖 What do I like the most in you?",
+        options: ["Eyes", "Everything about you", "Hairs", "Intelligence"],
+        answer: "Everything about you"
+      },
+      {
+        question: "💞 Will you be with me forever?",
+        options: ["Yes", "Hell yes", "Ofcourse", "Dont wanna die"],
+        answer: "Ofcourse"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      document.getElementById("question").textContent = q.question;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+      q.options.forEach((option, index) => {
+        const label = document.createElement("label");
+        label.classList.add("option");
+        label.innerHTML = `
+          <input type="radio" name="option" value="${option}"> ${option}
+        `;
+        optionsDiv.appendChild(label);
+      });
+      document.getElementById("result").textContent = "";
+    }
+
+    function submitAnswer() {
+      const selectedOption = document.querySelector('input[name="option"]:checked');
+      if (!selectedOption) {
+        document.getElementById("result").textContent = "Please select an answer 💔";
+        return;
+      }
+
+      const answer = selectedOption.value;
+      if (answer === quizData[currentQuestion].answer) {
+        score++;
+      }
+
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        showFinalResult();
+      }
+    }
+
+    function showFinalResult() {
+      const quizContent = document.getElementById("quiz-content");
+      quizContent.innerHTML = `
+        <div class="question">You scored ${score} out of ${quizData.length}! ❤️</div>
+        <div class="heart">💖 Happy six months anniversary 💐💖</div>
+        <div class="heart1">💖 I love you!! 💖💖</div>
+      `;
+    }
+
+    // Load the first question
+    loadQuestion();
+  </script>
+</body>
+</html>
